@@ -1,0 +1,184 @@
+/*****************************
+05 - Layout - Header
+*****************************/
+
+/*-- 05.00 - Header --*/
+
+.header {
+	.logo {
+		display: block;
+
+		&--transparent {
+			height: 0;
+			opacity: 0;
+			visibility: hidden;
+		}
+
+		&--normal {
+			height: auto;
+			visibility: visible;
+			opacity: 1;
+		}
+	}
+
+	&__outer {
+		position: relative;
+		background-color: $color-white;
+		z-index: 4;
+	}
+
+	&__top {
+		font-size: 13px;
+		font-weight: 300;
+		background-color: $primary-color;
+		color: $color-white;
+		padding: 13px 0;
+
+		a {
+			color: inherit;
+		}
+
+		&-inner {
+			@include flexbox;
+			@include align-items(center);
+			@include justify-content(space-between);
+		}
+	}
+
+	&__middle {
+		background-color: $color-porcelain;
+		color: $color-shaft;
+
+		&-inner {
+			@include flexbox;
+			@include align-items(center);
+			padding-top: 25px;
+			padding-bottom: 25px;
+		}
+
+		&-left {
+			@include flex-shrink(0);
+			@include flex-basis(18%);
+
+			@include breakpoint(small) {
+				@include flex-basis(50%);
+			}
+		}
+
+		&-center {
+			@include flex-grow(1);
+		}
+
+		&-right {
+			@include flex-shrink(0);
+			@include flex-basis(18%);
+
+			@include breakpoint(small) {
+				@include flex-basis(50%);
+			}
+		}
+	}
+
+	&-toolbar {
+		@include flexbox;
+		@include align-items(center);
+		@include justify-content(flex-end);
+
+		&__btn {
+			&.menu-btn {
+				width: 35px;
+				height: 35px;
+				line-height: 35px;
+				text-align: center;
+				display: inline-block;
+			}
+		}
+	}
+
+	.top-menu {
+		li {
+			padding-right: 20px;
+			padding-left: 20px;
+			line-height: 1;
+			margin: 0;
+
+			&:not(:last-child) {
+				border-right: 1px solid $color-white;
+			}
+
+			&:first-child {
+				padding-left: 0;
+			}
+
+			&:last-child {
+				padding-right: 0;
+			}
+		}
+	}
+}
+
+
+/*-- 05.01 - Sticky Header --*/
+
+.site-header {
+	.header__inner {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: auto;
+		@include transition(transform .5s, background .25s, visibility .25s, opacity .25s);
+	}
+
+	&.is-sticky {
+		.header {
+			&--fixed {
+				top: 0;
+				transform: translate(0, -100%);
+				-ms-transform: translate(0, -100%);
+				-webkit-transform: translate(0, -100%);
+				will-change: transform, background;
+				z-index: 10;
+				background-color: #fff;
+			}
+
+			&--pinned {
+				position: fixed;
+				@include transition(transform .5s, background .25s, visibility .25s, opacity .25s);
+				@include transform(translateY(0));
+				visibility: visible;
+
+				.header__top {
+					position: absolute;
+					top: -50px;
+				}
+			}
+
+			&--unpinned {
+				transform: translate(0, -100%);
+				-ms-transform: translate(0, -100%);
+				-webkit-transform: translate(0, -100%);
+				visibility: hidden;
+				@include transition(transform .5s, background .25s, visibility .25s, opacity .25s);
+			}
+		}
+	}
+}
+
+
+
+/*-- 05.02 - Site Info--*/
+
+.site-info {
+	@include flexbox;
+	@include justify-content(flex-end);
+
+	&.vertical {
+		@include justify-content(flex-start);
+	}
+
+	&__item {
+		@include flex-grow(0);
+		@include flex-basis(20%);
+	}
+}
